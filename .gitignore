@@ -45,3 +45,7 @@ Desktop.ini
 .env
 .env.*
 !.env.example
+
+# Clones locaux
+production/
+recette/
