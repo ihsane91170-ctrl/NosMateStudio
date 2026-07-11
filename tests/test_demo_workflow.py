@@ -104,3 +104,5 @@ def test_demo_workflow_executes_end_to_end_in_simulation() -> None:
         MouseEvent("click", 500, 250),
         MouseEvent("double_click", 700, 400),
     ]
+
+    assert workflow.name == "Demo Workflow"

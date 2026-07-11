@@ -1,5 +1,15 @@
 from app.workflows.demo_workflow import DemoWorkflow
+from app.workflows.library import (
+    DuplicateWorkflowError,
+    WorkflowLibrary,
+    WorkflowNotFoundError,
+)
+from app.workflows.protocol import Workflow
 
 __all__ = [
     "DemoWorkflow",
+    "DuplicateWorkflowError",
+    "Workflow",
+    "WorkflowLibrary",
+    "WorkflowNotFoundError",
 ]

@@ -3,16 +3,19 @@ from app.actions.press_key import PressKeyAction
 from app.actions.wait import WaitAction
 from app.calibration.models import CalibrationTarget
 from app.configuration.models import Action
+from app.engine.workflow_step import WorkflowStep
 
 
 class DemoWorkflow:
-    def steps(self):
+    @property
+    def name(self) -> str:
+        return "Demo Workflow"
+
+    def steps(self) -> list[WorkflowStep]:
         return [
             PressKeyAction(Action.PET_STORAGE),
             WaitAction(0.5),
-            ClickAction(
-                CalibrationTarget.PET_ICON_1,
-            ),
+            ClickAction(CalibrationTarget.PET_ICON_1),
             WaitAction(0.2),
             ClickAction(
                 CalibrationTarget.ACCOMPANY_BUTTON,
