@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-
 DEFAULT_CONFIG = Path(__file__).with_name("config.default.json")
 LOCAL_CONFIG = Path(__file__).with_name("config.local.json")
 

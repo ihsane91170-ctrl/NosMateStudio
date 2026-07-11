@@ -7,7 +7,7 @@ name = "nosmate-studio"
 version = "0.1.0a0"
 description = "Application Windows de préparation automatisée d'une session NosMate."
 readme = "README.md"
-requires-python = ">=3.11,<3.13"
+requires-python = ">=3.13"
 authors = [
     { name = "Ihsane Benachour" }
 ]
