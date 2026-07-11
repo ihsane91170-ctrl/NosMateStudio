@@ -1,9 +1,12 @@
-import pyautogui
+import pydirectinput
 
 from app.executors.exceptions import ExecutorDisabledError
-from app.executors.keyboard.validation import (
-    normalize_and_validate_key,
-    to_pyautogui_key,
+from app.executors.keyboard.validation import normalize_and_validate_key
+from app.keyboard.layout import KeyboardLayout
+from app.keyboard.translator import KeyboardLayoutTranslator
+
+translator = KeyboardLayoutTranslator(
+    KeyboardLayout.AZERTY
 )
 
 
@@ -16,7 +19,8 @@ class PyAutoGUIKeyboardExecutor:
 
         if not self.enabled:
             raise ExecutorDisabledError(
-                "L'exécuteur clavier réel est désactivé."
+                "Le Keyboard Executor est désactivé."
             )
 
-        pyautogui.press(to_pyautogui_key(normalized))
+        physical_key = translator.translate(normalized)
+        pydirectinput.press(physical_key)

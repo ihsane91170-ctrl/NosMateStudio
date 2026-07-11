@@ -8,7 +8,13 @@ def test_rejects_empty_key() -> None:
     settings = Settings(
         profile="Default",
         environment=Environment.RECETTE,
-        hotkeys=Hotkeys("", "W", "_", "1", "2", "3"),
+        hotkeys=Hotkeys(
+            go_to_pet_xp_zone="",
+            capture_new_pet="W",
+            summon_weak="1",
+            summon_normal="2",
+            summon_strong="3",
+        ),
     )
 
     with pytest.raises(SettingsValidationError):
@@ -19,7 +25,13 @@ def test_rejects_duplicate_keys() -> None:
     settings = Settings(
         profile="Default",
         environment=Environment.RECETTE,
-        hotkeys=Hotkeys("Q", "Q", "_", "1", "2", "3"),
+        hotkeys=Hotkeys(
+            go_to_pet_xp_zone="_",
+            capture_new_pet="_",
+            summon_weak="1",
+            summon_normal="2",
+            summon_strong="3",
+        ),
     )
 
     with pytest.raises(SettingsValidationError) as exc_info:

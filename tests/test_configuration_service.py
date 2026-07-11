@@ -26,9 +26,9 @@ def test_update_hotkey_saves_normalized_value() -> None:
     repository = MemoryRepository()
     service = SettingsService(repository)
 
-    updated = service.update_hotkey(Action.PET_STORAGE, "e")
+    updated = service.update_hotkey(Action.GO_TO_PET_XP_ZONE, "e")
 
-    assert updated.hotkeys.pet_storage == "E"
+    assert updated.hotkeys.go_to_pet_xp_zone == "E"
     assert repository.settings == updated
 
 
@@ -36,4 +36,7 @@ def test_update_rejects_duplicate_hotkey() -> None:
     service = SettingsService(MemoryRepository())
 
     with pytest.raises(SettingsValidationError):
-        service.update_hotkey(Action.PET_STORAGE, "W")
+        service.update_hotkey(
+            Action.GO_TO_PET_XP_ZONE,
+            "W",
+        )
