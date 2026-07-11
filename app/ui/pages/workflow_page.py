@@ -27,7 +27,7 @@ from app.executors.keyboard import SimulationKeyboardExecutor
 from app.executors.mouse import SimulationMouseExecutor
 from app.executors.wait import SimulationWaitExecutor
 from app.monitor import WorkflowMonitor
-from app.runtime import AutomationRuntime
+from app.runtime import AutomationRuntime, RuntimeFactory, RuntimeMode
 from app.vision.window_detector import GameWindow
 from app.workflows import WorkflowLibrary
 
@@ -125,6 +125,15 @@ class WorkflowPage(QWidget):
         layout.addLayout(buttons)
         layout.addWidget(self.log_output, 1)
 
+    def _create_runtime(self) -> AutomationRuntime:
+        mode = (
+            RuntimeMode.REAL
+            if self.real_radio.isChecked()
+            else RuntimeMode.SIMULATION
+        )
+
+        return RuntimeFactory.create(mode)
+
     def _run_selected_workflow(self) -> None:
         if self.real_radio.isChecked():
             self.state_label.setText(
@@ -147,15 +156,11 @@ class WorkflowPage(QWidget):
         steps = workflow.steps()
         total_cycles = self.cycles_input.value()
 
-        keyboard = SimulationKeyboardExecutor()
-        mouse = SimulationMouseExecutor()
-        waiter = SimulationWaitExecutor()
+        runtime = self._create_runtime()
 
-        runtime = AutomationRuntime(
-            keyboard=keyboard,
-            mouse=mouse,
-            wait=waiter,
-        )
+        keyboard = runtime.keyboard
+        mouse = runtime.mouse
+        waiter = runtime.wait
 
         calibration = CalibrationProfile(
             points={

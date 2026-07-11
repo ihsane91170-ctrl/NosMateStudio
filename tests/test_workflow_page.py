@@ -1,3 +1,7 @@
+from app.executors.keyboard import (
+    PyAutoGUIKeyboardExecutor,
+    SimulationKeyboardExecutor,
+)
 from app.ui.pages.workflow_page import WorkflowPage
 
 
@@ -58,3 +62,23 @@ def test_real_mode_is_not_enabled_yet(qtbot) -> None:
         == "État : le mode réel n'est pas encore activé"
     )
     assert "prochaine étape" in page.log_output.toPlainText()
+
+def test_page_creates_simulation_runtime_by_default(qtbot) -> None:
+    page = WorkflowPage()
+    qtbot.addWidget(page)
+
+    runtime = page._create_runtime()
+
+    assert isinstance(runtime.keyboard, SimulationKeyboardExecutor)
+
+
+def test_page_can_build_real_runtime(qtbot) -> None:
+    page = WorkflowPage()
+    qtbot.addWidget(page)
+
+    page.real_radio.setChecked(True)
+
+    runtime = page._create_runtime()
+
+    assert isinstance(runtime.keyboard, PyAutoGUIKeyboardExecutor)
+    assert runtime.keyboard.enabled is True
