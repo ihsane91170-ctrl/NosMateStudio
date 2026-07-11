@@ -16,7 +16,6 @@ from PySide6.QtWidgets import (
 from app import __version__
 from app.calibration.repository import JsonCalibrationRepository
 from app.calibration.service import CalibrationService
-from app.config.settings import load_settings
 from app.configuration.repository import JsonSettingsRepository
 from app.configuration.service import SettingsService
 from app.core.controllers.calibration_controller import CalibrationController
@@ -27,6 +26,7 @@ from app.ui.pages.calibration_page import CalibrationPage
 from app.ui.pages.dashboard_page import DashboardPage
 from app.ui.pages.logs_page import LogsPage
 from app.ui.pages.settings_page import SettingsPage
+from app.ui.pages.template_editor_page import TemplateEditorPage
 from app.ui.pages.workflow_page import WorkflowPage
 from app.ui.theme import build_stylesheet
 from app.vision.window_detector import WindowDetector
@@ -40,8 +40,8 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(960, 620)
         self.setStyleSheet(build_stylesheet())
 
-        legacy_settings = load_settings()
-        title_filter = legacy_settings["nostale"]["window_title_contains"]
+        title_filter = "NosTale"
+
         window_detector = WindowDetector(title_filter)
 
         diagnostic_service = GameDiagnosticService(window_detector)
@@ -82,9 +82,11 @@ class MainWindow(QMainWindow):
             __version__,
             self.diagnostic_controller,
         )
+
         self.pages.addWidget(self.dashboard)
         self.pages.addWidget(WorkflowPage())
         self.pages.addWidget(CalibrationPage(self.calibration_controller))
+        self.pages.addWidget(TemplateEditorPage())
         self.pages.addWidget(LogsPage())
         self.pages.addWidget(SettingsPage(self.settings_controller))
 
@@ -119,7 +121,14 @@ class MainWindow(QMainWindow):
         nav_layout.addWidget(subtitle)
         nav_layout.addSpacing(20)
 
-        labels = ["Dashboard", "Workflow", "Calibration", "Logs", "Paramètres"]
+        labels = [
+            "Dashboard",
+            "Workflow",
+            "Calibration",
+            "Templates",
+            "Logs",
+            "Paramètres",
+        ]
 
         self._nav_buttons: list[QPushButton] = []
         group = QButtonGroup(self)
