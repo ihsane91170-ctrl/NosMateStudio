@@ -34,7 +34,7 @@ class ClickAction(WorkflowStep):
         self.click_type = click_type
 
     def execute(self, context: WorkflowContext) -> StepResult:
-        mouse: MouseExecutor = context.require("mouse")
+        mouse: MouseExecutor = context.require_runtime().mouse
         window: GameWindow = context.require("game_window")
         calibration = context.require("calibration")
 

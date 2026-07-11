@@ -70,3 +70,19 @@ def test_engine_can_be_reset() -> None:
     assert engine.state is WorkflowState.IDLE
     assert engine.current_step_index is None
     assert engine.last_error is None
+
+class RejectingSafety:
+    def ensure_safe(self) -> None:
+        raise RuntimeError("unsafe")
+
+
+def test_engine_stops_when_safety_check_fails() -> None:
+    step = RecordingStep("protected")
+    context = WorkflowContext(safety=RejectingSafety())
+    engine = WorkflowEngine()
+
+    state = engine.run([step], context)
+
+    assert state is WorkflowState.ERROR
+    assert step.executed is False
+    assert engine.last_error == "unsafe"

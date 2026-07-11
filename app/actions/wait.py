@@ -20,7 +20,7 @@ class WaitAction(WorkflowStep):
         self.seconds = seconds
 
     def execute(self, context: WorkflowContext) -> StepResult:
-        waiter: WaitExecutor = context.require("waiter")
+        waiter: WaitExecutor = context.require_runtime().wait
         waiter.wait(self.seconds)
 
         return StepResult.success(

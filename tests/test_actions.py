@@ -14,6 +14,7 @@ from app.configuration.models import (
 )
 from app.engine.workflow_context import WorkflowContext
 from app.engine.workflow_step import StepResultStatus
+from app.runtime import AutomationRuntime
 from app.vision.window_detector import GameWindow
 
 
@@ -44,18 +45,31 @@ class WaiterFake:
         self.durations.append(seconds)
 
 
+def build_runtime(
+    keyboard: KeyboardFake | None = None,
+    mouse: MouseFake | None = None,
+    waiter: WaiterFake | None = None,
+) -> AutomationRuntime:
+    return AutomationRuntime(
+        keyboard=keyboard or KeyboardFake(),
+        mouse=mouse or MouseFake(),
+        wait=waiter or WaiterFake(),
+    )
+
+
 def test_press_key_action_uses_configured_hotkey() -> None:
     keyboard = KeyboardFake()
     settings = Settings(
         profile="Default",
         environment=Environment.RECETTE,
-        hotkeys=Hotkeys("Q", "W", "_","1", "2", "3"),
+        hotkeys=Hotkeys("Q", "W", "_", "1", "2", "3"),
     )
+
     context = WorkflowContext(
-        {
-            "keyboard": keyboard,
+        runtime=build_runtime(keyboard=keyboard),
+        data={
             "settings": settings,
-        }
+        },
     )
 
     result = PressKeyAction(Action.PET_STORAGE).execute(context)
@@ -66,7 +80,10 @@ def test_press_key_action_uses_configured_hotkey() -> None:
 
 def test_wait_action_uses_wait_executor() -> None:
     waiter = WaiterFake()
-    context = WorkflowContext({"waiter": waiter})
+
+    context = WorkflowContext(
+        runtime=build_runtime(waiter=waiter),
+    )
 
     result = WaitAction(2.5).execute(context)
 
@@ -88,12 +105,13 @@ def test_click_action_converts_relative_position() -> None:
         width=1280,
         height=720,
     )
+
     context = WorkflowContext(
-        {
-            "mouse": mouse,
+        runtime=build_runtime(mouse=mouse),
+        data={
             "calibration": calibration,
             "game_window": window,
-        }
+        },
     )
 
     result = ClickAction(
@@ -106,9 +124,11 @@ def test_click_action_converts_relative_position() -> None:
 
 
 def test_click_action_fails_when_target_is_not_calibrated() -> None:
+    mouse = MouseFake()
+
     context = WorkflowContext(
-        {
-            "mouse": MouseFake(),
+        runtime=build_runtime(mouse=mouse),
+        data={
             "calibration": CalibrationProfile(),
             "game_window": GameWindow(
                 title="NosTale",
@@ -117,7 +137,7 @@ def test_click_action_fails_when_target_is_not_calibrated() -> None:
                 width=1280,
                 height=720,
             ),
-        }
+        },
     )
 
     result = ClickAction(
@@ -125,3 +145,4 @@ def test_click_action_fails_when_target_is_not_calibrated() -> None:
     ).execute(context)
 
     assert result.status is StepResultStatus.FAILED
+    assert mouse.clicks == []

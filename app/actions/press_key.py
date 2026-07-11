@@ -16,7 +16,7 @@ class PressKeyAction(WorkflowStep):
         self.action = action
 
     def execute(self, context: WorkflowContext) -> StepResult:
-        keyboard: KeyboardExecutor = context.require("keyboard")
+        keyboard: KeyboardExecutor = context.require_runtime().keyboard
         settings: Settings = context.require("settings")
 
         key = settings.hotkeys.get(self.action)

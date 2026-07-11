@@ -25,4 +25,5 @@ def normalize_and_validate_key(key: str) -> str:
             f"La touche {normalized!r} n'est pas reconnue par PyAutoGUI."
         )
 
+
     return normalized

@@ -57,6 +57,8 @@ class WorkflowEngine:
                     self._emit("workflow_paused")
                     return self.state
 
+                execution_context.ensure_safe()
+
                 self.current_step_index = index
                 self._emit("step_started", step.name)
 
