@@ -1,0 +1,46 @@
+name: User Story
+description: Créer une User Story du Product Backlog
+title: "[USXXX] "
+labels:
+  - user-story
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: User Story
+      description: En tant que... je souhaite... afin de...
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critères d'acceptation
+      description: Utiliser Given / When / Then lorsque pertinent.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorité
+      options:
+        - Critique
+        - Haute
+        - Moyenne
+        - Basse
+    validations:
+      required: true
+
+  - type: dropdown
+    id: estimate
+    attributes:
+      label: Estimation
+      options:
+        - XS
+        - S
+        - M
+        - L
+        - XL
+    validations:
+      required: true

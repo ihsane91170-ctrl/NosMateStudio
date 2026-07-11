@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environnements virtuels
+.venv/
+venv/
+env/
+
+# Builds
+build/
+dist/
+*.egg-info/
+*.spec
+
+# Configuration locale et données utilisateur
+config.local.json
+app/config/config.local.json
+*.local.json
+
+# Logs et captures temporaires
+logs/*
+!logs/.gitkeep
+screenshots/
+tmp/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Secrets
+.env
+.env.*
+!.env.example
