@@ -1,7 +1,10 @@
 import pyautogui
 
 from app.executors.exceptions import ExecutorDisabledError
-from app.executors.keyboard.validation import normalize_and_validate_key
+from app.executors.keyboard.validation import (
+    normalize_and_validate_key,
+    to_pyautogui_key,
+)
 
 
 class PyAutoGUIKeyboardExecutor:
@@ -16,4 +19,4 @@ class PyAutoGUIKeyboardExecutor:
                 "L'exécuteur clavier réel est désactivé."
             )
 
-        pyautogui.press(normalized.lower())
+        pyautogui.press(to_pyautogui_key(normalized))

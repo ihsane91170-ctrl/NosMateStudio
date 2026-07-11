@@ -27,7 +27,7 @@ class ControllerStub:
             Settings(
                 profile="Default",
                 environment=Environment.RECETTE,
-                hotkeys=Hotkeys("Q", "W", "1", "2", "3"),
+                hotkeys=Hotkeys("Q", "W", "_", "1", "2", "3"),
             )
         )
 
@@ -44,5 +44,6 @@ def test_settings_page_loads_current_values(qtbot) -> None:
     qtbot.addWidget(page)
 
     assert controller.loaded is True
-    assert page._selectors["pet_storage"].currentText() == "Q"
-    assert page._selectors["xp_map"].currentText() == "W"
+    assert page._selectors["pet_storage"].text() == "Q"
+    assert page._selectors["capture_new_pet"].text() == "W"
+    assert page._selectors["xp_map"].text() == "_"

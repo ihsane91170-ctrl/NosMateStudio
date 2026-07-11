@@ -13,6 +13,7 @@ class Environment(StrEnum):
 
 class Action(StrEnum):
     PET_STORAGE = "pet_storage"
+    CAPTURE_NEW_PET = "capture_new_pet"
     XP_MAP = "xp_map"
     SUMMON_WEAK = "summon_weak"
     SUMMON_NORMAL = "summon_normal"
@@ -22,6 +23,7 @@ class Action(StrEnum):
 @dataclass(slots=True)
 class Hotkeys:
     pet_storage: str
+    capture_new_pet: str
     xp_map: str
     summon_weak: str
     summon_normal: str
@@ -30,6 +32,7 @@ class Hotkeys:
     def as_mapping(self) -> dict[Action, str]:
         return {
             Action.PET_STORAGE: self.pet_storage,
+            Action.CAPTURE_NEW_PET: self.capture_new_pet,
             Action.XP_MAP: self.xp_map,
             Action.SUMMON_WEAK: self.summon_weak,
             Action.SUMMON_NORMAL: self.summon_normal,
@@ -42,6 +45,7 @@ class Hotkeys:
     def with_updated(self, action: Action, key: str) -> Hotkeys:
         values = {
             "pet_storage": self.pet_storage,
+            "capture_new_pet": self.capture_new_pet,
             "xp_map": self.xp_map,
             "summon_weak": self.summon_weak,
             "summon_normal": self.summon_normal,
@@ -49,7 +53,6 @@ class Hotkeys:
         }
         values[action.value] = key
         return Hotkeys(**values)
-
 
 @dataclass(slots=True)
 class Settings:

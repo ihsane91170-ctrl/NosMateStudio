@@ -3,7 +3,6 @@ from __future__ import annotations
 from app.configuration.models import Action, Settings
 from app.engine.workflow_context import WorkflowContext
 from app.engine.workflow_step import StepResult, WorkflowStep
-
 from app.executors.keyboard.protocol import KeyboardExecutor
 
 

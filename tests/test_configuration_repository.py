@@ -12,7 +12,7 @@ def test_repository_saves_and_loads_settings(tmp_path) -> None:
     expected = Settings(
         profile="Default",
         environment=Environment.RECETTE,
-        hotkeys=Hotkeys("Q", "W", "1", "2", "3"),
+        hotkeys=Hotkeys("Q", "W", "_", "1", "2", "3"),
     )
 
     repository.save(expected)

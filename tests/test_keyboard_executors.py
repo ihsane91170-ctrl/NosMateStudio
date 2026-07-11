@@ -34,7 +34,7 @@ def test_executor_rejects_unknown_key() -> None:
     executor = SimulationKeyboardExecutor()
 
     with pytest.raises(InvalidKeyError):
-        executor.press("F12")
+        executor.press("not-a-real-key")
 
 
 def test_real_executor_is_disabled_by_default() -> None:

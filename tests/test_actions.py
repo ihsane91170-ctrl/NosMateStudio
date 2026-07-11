@@ -1,4 +1,5 @@
 from app.actions.click import ClickAction, ClickType
+from app.actions.press_key import PressKeyAction
 from app.actions.wait import WaitAction
 from app.calibration.models import (
     CalibrationProfile,
@@ -13,8 +14,6 @@ from app.configuration.models import (
 )
 from app.engine.workflow_context import WorkflowContext
 from app.engine.workflow_step import StepResultStatus
-
-from app.actions.press_key import PressKeyAction
 from app.vision.window_detector import GameWindow
 
 
@@ -50,7 +49,7 @@ def test_press_key_action_uses_configured_hotkey() -> None:
     settings = Settings(
         profile="Default",
         environment=Environment.RECETTE,
-        hotkeys=Hotkeys("Q", "W", "1", "2", "3"),
+        hotkeys=Hotkeys("Q", "W", "_","1", "2", "3"),
     )
     context = WorkflowContext(
         {

@@ -7,7 +7,7 @@ class ServiceStub:
         self.settings = Settings(
             profile="Default",
             environment=Environment.RECETTE,
-            hotkeys=Hotkeys("Q", "W", "1", "2", "3"),
+            hotkeys=Hotkeys("Q", "W", "_", "1", "2", "3"),
         )
 
     def load(self):

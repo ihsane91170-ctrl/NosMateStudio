@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from app.configuration.defaults import ALLOWED_KEYS
 from app.configuration.models import Action, Settings
 
 
@@ -19,7 +18,12 @@ class SettingsValidationError(ValueError):
 
 
 def normalize_key(key: str) -> str:
-    return key.strip().upper()
+    normalized = key.strip()
+
+    if len(normalized) == 1 and normalized.isalpha():
+        return normalized.upper()
+
+    return normalized.lower()
 
 
 def validate_settings(settings: Settings) -> None:
@@ -37,13 +41,6 @@ def validate_settings(settings: Settings) -> None:
         if not key:
             issues.append(
                 ValidationIssue(action.value, "Le raccourci ne peut pas être vide.")
-            )
-        elif key not in ALLOWED_KEYS:
-            issues.append(
-                ValidationIssue(
-                    action.value,
-                    f"La touche {key!r} n'est pas autorisée.",
-                )
             )
 
     reverse: dict[str, list[Action]] = {}
