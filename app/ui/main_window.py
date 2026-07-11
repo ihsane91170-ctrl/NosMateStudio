@@ -1,73 +1,150 @@
-import tkinter as tk
-from tkinter import ttk
+from pathlib import Path
+
+from PySide6.QtCore import Qt, QTimer
+from PySide6.QtWidgets import (
+    QButtonGroup,
+    QFrame,
+    QHBoxLayout,
+    QLabel,
+    QMainWindow,
+    QPushButton,
+    QStackedWidget,
+    QVBoxLayout,
+    QWidget,
+)
 
 from app import __version__
+from app.calibration.repository import JsonCalibrationRepository
+from app.calibration.service import CalibrationService
+from app.config.settings import load_settings
+from app.configuration.repository import JsonSettingsRepository
+from app.configuration.service import SettingsService
+from app.core.controllers.calibration_controller import CalibrationController
+from app.core.controllers.diagnostic_controller import DiagnosticController
+from app.core.controllers.settings_controller import SettingsController
+from app.services.game_diagnostic_service import GameDiagnosticService
+from app.ui.pages.calibration_page import CalibrationPage
+from app.ui.pages.dashboard_page import DashboardPage
+from app.ui.pages.logs_page import LogsPage
+from app.ui.pages.settings_page import SettingsPage
+from app.ui.pages.workflow_page import WorkflowPage
+from app.ui.theme import build_stylesheet
+from app.vision.window_detector import WindowDetector
 
 
-def run_app() -> None:
-    root = tk.Tk()
-    root.title(f"NosMate Studio — {__version__}")
-    root.geometry("760x480")
-    root.minsize(700, 430)
+class MainWindow(QMainWindow):
+    def __init__(self) -> None:
+        super().__init__()
+        self.setWindowTitle(f"NosMate Studio — {__version__}")
+        self.resize(1120, 720)
+        self.setMinimumSize(960, 620)
+        self.setStyleSheet(build_stylesheet())
 
-    style = ttk.Style(root)
-    try:
-        style.theme_use("clam")
-    except tk.TclError:
-        pass
+        legacy_settings = load_settings()
+        title_filter = legacy_settings["nostale"]["window_title_contains"]
+        window_detector = WindowDetector(title_filter)
 
-    container = ttk.Frame(root, padding=18)
-    container.pack(fill="both", expand=True)
+        diagnostic_service = GameDiagnosticService(window_detector)
+        self.diagnostic_controller = DiagnosticController(
+            diagnostic_service,
+            interval_ms=1500,
+            parent=self,
+        )
 
-    ttk.Label(
-        container,
-        text="NosMate Studio",
-        font=("Segoe UI", 20, "bold"),
-    ).pack(anchor="w")
+        settings_service = SettingsService(
+            JsonSettingsRepository(Path("app/config/config.local.json"))
+        )
+        self.settings_controller = SettingsController(
+            settings_service,
+            parent=self,
+        )
 
-    ttk.Label(
-        container,
-        text="Sprint 0 — Fondations du produit",
-        font=("Segoe UI", 11),
-    ).pack(anchor="w", pady=(0, 18))
+        calibration_service = CalibrationService(
+            JsonCalibrationRepository(
+                Path("app/config/calibration.local.json")
+            )
+        )
+        self.calibration_controller = CalibrationController(
+            calibration_service,
+            window_detector,
+            parent=self,
+        )
 
-    diagnostic = ttk.LabelFrame(container, text="Diagnostic", padding=14)
-    diagnostic.pack(fill="x")
+        root = QWidget()
+        root_layout = QHBoxLayout(root)
+        root_layout.setContentsMargins(0, 0, 0, 0)
+        root_layout.setSpacing(0)
+        self.setCentralWidget(root)
 
-    rows = [
-        ("Client NosTale", "Non testé — US001"),
-        ("Configuration", "Structure prête — US002"),
-        ("Calibration", "À développer — US003"),
-        ("Mode simulation", "Prévu"),
-    ]
+        sidebar = self._build_sidebar()
+        self.pages = QStackedWidget()
+        self.dashboard = DashboardPage(
+            __version__,
+            self.diagnostic_controller,
+        )
+        self.pages.addWidget(self.dashboard)
+        self.pages.addWidget(WorkflowPage())
+        self.pages.addWidget(CalibrationPage(self.calibration_controller))
+        self.pages.addWidget(LogsPage())
+        self.pages.addWidget(SettingsPage(self.settings_controller))
 
-    for row, (label, value) in enumerate(rows):
-        ttk.Label(diagnostic, text=label).grid(row=row, column=0, sticky="w", pady=5)
-        ttk.Label(diagnostic, text=value).grid(row=row, column=1, sticky="w", padx=(25, 0))
-    diagnostic.columnconfigure(1, weight=1)
+        root_layout.addWidget(sidebar)
+        root_layout.addWidget(self.pages, 1)
 
-    workflow = ttk.LabelFrame(container, text="Workflow Sprint 1", padding=14)
-    workflow.pack(fill="x", pady=14)
+        self.statusBar().showMessage("État : surveillance active")
+        self._nav_buttons[0].setChecked(True)
+        self.pages.setCurrentIndex(0)
 
-    ttk.Label(
-        workflow,
-        text=(
-            "Capture → Téléportation → Invocation → "
-            "Affectation F1/F2/F3 → Session prête"
-        ),
-    ).pack(anchor="w")
+        QTimer.singleShot(250, self.dashboard.start_monitoring)
 
-    status = ttk.LabelFrame(container, text="État", padding=14)
-    status.pack(fill="both", expand=True)
+    def closeEvent(self, event) -> None:
+        self.dashboard.stop_monitoring()
+        super().closeEvent(event)
 
-    ttk.Label(
-        status,
-        text="Le socle du projet est prêt. La prochaine branche sera "
-             "feature/US001-detection-nostale.",
-        wraplength=650,
-        justify="left",
-    ).pack(anchor="w")
+    def _build_sidebar(self) -> QFrame:
+        sidebar = QFrame()
+        sidebar.setObjectName("Sidebar")
+        sidebar.setFixedWidth(220)
 
-    ttk.Button(container, text="Fermer", command=root.destroy).pack(anchor="e", pady=(14, 0))
+        title = QLabel("NosMate Studio")
+        title.setObjectName("AppTitle")
 
-    root.mainloop()
+        subtitle = QLabel("Automation workspace")
+        subtitle.setObjectName("Muted")
+
+        nav_layout = QVBoxLayout(sidebar)
+        nav_layout.setContentsMargins(16, 20, 16, 16)
+        nav_layout.setSpacing(8)
+        nav_layout.addWidget(title)
+        nav_layout.addWidget(subtitle)
+        nav_layout.addSpacing(20)
+
+        labels = ["Dashboard", "Workflow", "Calibration", "Logs", "Paramètres"]
+
+        self._nav_buttons: list[QPushButton] = []
+        group = QButtonGroup(self)
+        group.setExclusive(True)
+
+        for index, label in enumerate(labels):
+            button = QPushButton(label)
+            button.setCheckable(True)
+            button.clicked.connect(
+                lambda checked=False, i=index: self._switch_page(i)
+            )
+            group.addButton(button)
+            self._nav_buttons.append(button)
+            nav_layout.addWidget(button)
+
+        nav_layout.addStretch(1)
+
+        version = QLabel(f"v{__version__}")
+        version.setObjectName("Muted")
+        version.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        nav_layout.addWidget(version)
+        return sidebar
+
+    def _switch_page(self, index: int) -> None:
+        self.pages.setCurrentIndex(index)
+        self.statusBar().showMessage(
+            f"Page active : {self._nav_buttons[index].text()}"
+        )
