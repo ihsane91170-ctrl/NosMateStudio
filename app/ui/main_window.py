@@ -41,7 +41,12 @@ class MainWindow(QMainWindow):
         self.setStyleSheet(build_stylesheet())
 
         legacy_settings = load_settings()
-        title_filter = legacy_settings["nostale"]["window_title_contains"]
+
+        title_filter = (
+            legacy_settings
+            .get("nostale", {})
+            .get("window_title_contains", "NosTale")
+        )
         window_detector = WindowDetector(title_filter)
 
         diagnostic_service = GameDiagnosticService(window_detector)

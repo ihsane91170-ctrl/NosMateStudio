@@ -40,3 +40,13 @@ def test_library_returns_all_registered_workflows() -> None:
     library.register(workflow)
 
     assert library.all() == (workflow,)
+
+def test_register_defaults_registers_all_workflows() -> None:
+    library = WorkflowLibrary()
+
+    library.register_defaults()
+
+    assert library.names() == (
+        "Demo Workflow",
+        "Pet XP Workflow",
+    )

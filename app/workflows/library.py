@@ -42,3 +42,10 @@ class WorkflowLibrary:
 
     def __len__(self) -> int:
         return len(self._workflows)
+
+    def register_defaults(self) -> None:
+        from app.workflows.demo_workflow import DemoWorkflow
+        from app.workflows.pet_xp_workflow import PetXpWorkflow
+
+        self.register(DemoWorkflow())
+        self.register(PetXpWorkflow())
