@@ -1,0 +1,7 @@
+{
+  "id": "chicken",
+  "display_name": "Poule",
+  "disposable": true,
+  "desired_stars": 0,
+  "template_name": "pet_chicken_row"
+}

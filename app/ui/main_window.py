@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from app.ui.pages.vision_debug_page import VisionDebugPage
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtWidgets import (
     QButtonGroup,
@@ -87,6 +87,7 @@ class MainWindow(QMainWindow):
         self.pages.addWidget(WorkflowPage())
         self.pages.addWidget(CalibrationPage(self.calibration_controller))
         self.pages.addWidget(TemplateEditorPage())
+        self.pages.addWidget(VisionDebugPage())
         self.pages.addWidget(LogsPage())
         self.pages.addWidget(SettingsPage(self.settings_controller))
 
@@ -126,6 +127,7 @@ class MainWindow(QMainWindow):
             "Workflow",
             "Calibration",
             "Templates",
+            "Vision Debug",
             "Logs",
             "Paramètres",
         ]

@@ -108,3 +108,71 @@ def test_matcher_rejects_invalid_threshold(tmp_path) -> None:
             repository,
             default_threshold=1.5,
         )
+
+def test_matcher_finds_multiple_occurrences(tmp_path) -> None:
+    repository = TemplateRepository(tmp_path / "templates")
+    template = build_pattern()
+    repository.save("pet_row", template)
+
+    screenshot_pixels = np.zeros(
+        (160, 220, 3),
+        dtype=np.uint8,
+    )
+
+    template_pixels = np.asarray(template)
+
+    screenshot_pixels[20:40, 30:60] = template_pixels
+    screenshot_pixels[80:100, 120:150] = template_pixels
+
+    screenshot = Image.fromarray(
+        screenshot_pixels,
+        mode="RGB",
+    )
+
+    matcher = TemplateMatcher(
+        repository,
+        default_threshold=0.90,
+    )
+
+    matches = matcher.find_all(
+        screenshot,
+        "pet_row",
+        minimum_distance=20,
+    )
+
+    assert len(matches) == 2
+    assert matches[0].left == 30
+    assert matches[0].top == 20
+    assert matches[1].left == 120
+    assert matches[1].top == 80
+
+
+def test_matcher_deduplicates_close_occurrences(tmp_path) -> None:
+    repository = TemplateRepository(tmp_path / "templates")
+    template = build_pattern()
+    repository.save("pet_row", template)
+
+    screenshot_pixels = np.zeros(
+        (100, 160, 3),
+        dtype=np.uint8,
+    )
+
+    screenshot_pixels[30:50, 60:90] = np.asarray(template)
+
+    screenshot = Image.fromarray(
+        screenshot_pixels,
+        mode="RGB",
+    )
+
+    matcher = TemplateMatcher(
+        repository,
+        default_threshold=0.80,
+    )
+
+    matches = matcher.find_all(
+        screenshot,
+        "pet_row",
+        minimum_distance=15,
+    )
+
+    assert len(matches) == 1
