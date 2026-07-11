@@ -27,7 +27,13 @@ class ControllerStub:
             Settings(
                 profile="Default",
                 environment=Environment.RECETTE,
-                hotkeys=Hotkeys("Q", "W", "_", "1", "2", "3"),
+                hotkeys=Hotkeys(
+                    go_to_pet_xp_zone="_",
+                    capture_new_pet="W",
+                    summon_weak="1",
+                    summon_normal="2",
+                    summon_strong="3",
+                ),
             )
         )
 
@@ -44,6 +50,8 @@ def test_settings_page_loads_current_values(qtbot) -> None:
     qtbot.addWidget(page)
 
     assert controller.loaded is True
-    assert page._selectors["pet_storage"].text() == "Q"
+    assert (
+        page._selectors["go_to_pet_xp_zone"].text()
+        == "_"
+    )
     assert page._selectors["capture_new_pet"].text() == "W"
-    assert page._selectors["xp_map"].text() == "_"

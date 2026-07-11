@@ -22,13 +22,12 @@ from app.core.controllers.settings_controller import SettingsController
 
 class SettingsPage(QWidget):
     ACTION_ROWS = (
-        ("Accès à la zone des familiers", "pet_storage"),
-        ("Capturer un nouveau familier", "capture_new_pet"),
-        ("Accès à la zone d'XP", "xp_map"),
-        ("Invocation du Protomonstre faible", "summon_weak"),
-        ("Invocation du Protomonstre", "summon_normal"),
-        ("Invocation du Protomonstre fort", "summon_strong"),
-    )
+    ("Accès à la zone Familiers / XP", "go_to_pet_xp_zone"),
+    ("Capturer un nouveau familier", "capture_new_pet"),
+    ("Invocation du Protomonstre faible", "summon_weak"),
+    ("Invocation du Protomonstre", "summon_normal"),
+    ("Invocation du Protomonstre fort", "summon_strong"),
+)
 
     def __init__(
         self,
@@ -144,18 +143,15 @@ class SettingsPage(QWidget):
             profile=self._current_settings.profile,
             environment=self._current_settings.environment,
             hotkeys=Hotkeys(
-                pet_storage=self._selectors["pet_storage"].text(),
+                go_to_pet_xp_zone=self._selectors[
+                    "go_to_pet_xp_zone"
+                ].text(),
                 capture_new_pet=self._selectors[
                     "capture_new_pet"
                 ].text(),
-                xp_map=self._selectors["xp_map"].text(),
                 summon_weak=self._selectors["summon_weak"].text(),
-                summon_normal=self._selectors[
-                    "summon_normal"
-                ].text(),
-                summon_strong=self._selectors[
-                    "summon_strong"
-                ].text(),
+                summon_normal=self._selectors["summon_normal"].text(),
+                summon_strong=self._selectors["summon_strong"].text(),
             ),
         )
 

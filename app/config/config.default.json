@@ -10,14 +10,16 @@
       "height": 720
     }
   },
-  "hotkeys": {
-    "capture": "f1",
-    "teleport": "f5",
-    "summon_weak": "1",
-    "summon_normal": "2",
-    "summon_strong": "3",
-    "emergency_stop": "ctrl+shift+f12"
-  },
+    "profile": "Default",
+    "environment": "recette",
+    "hotkeys": {
+      "go_to_pet_xp_zone": "-",
+      "capture_new_pet": "&",
+      "summon_weak": "é",
+      "summon_normal": "q",
+      "summon_strong": "e"
+    }
+},
   "delays_seconds": {
     "after_capture": 1.0,
     "after_teleport": 5.0,
