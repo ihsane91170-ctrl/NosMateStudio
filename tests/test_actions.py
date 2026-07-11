@@ -62,7 +62,13 @@ def test_press_key_action_uses_configured_hotkey() -> None:
     settings = Settings(
         profile="Default",
         environment=Environment.RECETTE,
-        hotkeys=Hotkeys("Q", "W", "_", "1", "2", "3"),
+        hotkeys=Hotkeys(
+            go_to_pet_xp_zone="_",
+            capture_new_pet="W",
+            summon_weak="1",
+            summon_normal="2",
+            summon_strong="3",
+        ),
     )
 
     context = WorkflowContext(
@@ -72,10 +78,10 @@ def test_press_key_action_uses_configured_hotkey() -> None:
         },
     )
 
-    result = PressKeyAction(Action.PET_STORAGE).execute(context)
+    result = PressKeyAction(Action.GO_TO_PET_XP_ZONE).execute(context)
 
     assert result.status is StepResultStatus.SUCCESS
-    assert keyboard.keys == ["Q"]
+    assert keyboard.keys == ["_"]
 
 
 def test_wait_action_uses_wait_executor() -> None:

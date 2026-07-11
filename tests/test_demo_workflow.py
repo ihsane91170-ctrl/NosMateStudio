@@ -52,15 +52,13 @@ def test_demo_workflow_executes_end_to_end_in_simulation() -> None:
         profile="Default",
         environment=Environment.RECETTE,
         hotkeys=Hotkeys(
-            pet_storage="Q",
+            go_to_pet_xp_zone="_",
             capture_new_pet="W",
-            xp_map="_",
             summon_weak="1",
             summon_normal="2",
             summon_strong="3",
         ),
     )
-
     calibration = CalibrationProfile(
         points={
             CalibrationTarget.PET_ICON_1: RelativePoint(100, 50),
@@ -92,7 +90,7 @@ def test_demo_workflow_executes_end_to_end_in_simulation() -> None:
 
     assert state is WorkflowState.FINISHED
 
-    assert keyboard.history == ["Q", "_"]
+    assert keyboard.history == ["_", "_"]
 
     assert waiter.history == [
         WaitEvent(0.5),
