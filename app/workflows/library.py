@@ -1,3 +1,6 @@
+from app.workflows.chicken_accompany_workflow import (
+    ChickenAccompanyWorkflow,
+)
 from app.workflows.protocol import Workflow
 
 
@@ -32,6 +35,7 @@ class WorkflowLibrary:
         from app.workflows.pet_xp_workflow import PetXpWorkflow
 
         self.register(DemoWorkflow())
+        self.register(ChickenAccompanyWorkflow())
         self.register(PetXpWorkflow())
         self.register(FirstRealActionWorkflow())
 

@@ -1,4 +1,7 @@
 from app.workflows.builder import WorkflowBuilder
+from app.workflows.chicken_accompany_workflow import (
+    ChickenAccompanyWorkflow,
+)
 from app.workflows.demo_workflow import DemoWorkflow
 from app.workflows.first_real_action import FirstRealActionWorkflow
 from app.workflows.library import (
@@ -18,4 +21,5 @@ __all__ = [
     "WorkflowLibrary",
     "WorkflowNotFoundError",
     "FirstRealActionWorkflow",
+    "ChickenAccompanyWorkflow",
 ]

@@ -28,28 +28,28 @@ def detected_ratufu() -> DetectedPet:
 
 
 def test_inspected_pet_exposes_detection_data() -> None:
-    pet = InspectedPet(
+    inspected = InspectedPet(
         detection=detected_ratufu(),
-        level=81,
         stars=4,
-        level_confidence=0.94,
         stars_confidence=0.98,
+        level=81,
+        level_confidence=0.94,
     )
 
-    assert pet.profile.id == "ratufu"
-    assert pet.center == (140, 215)
-    assert pet.level == 81
-    assert pet.stars == 4
-    assert pet.confidence == 0.94
+    assert inspected.profile.id == "ratufu"
+    assert inspected.center == (140, 215)
+    assert inspected.level == 81
+    assert inspected.stars == 4
+    assert inspected.confidence == 0.94
 
 
 def test_inspected_pet_creates_domain_instance() -> None:
     inspected = InspectedPet(
         detection=detected_ratufu(),
-        level=81,
         stars=4,
-        level_confidence=0.95,
-        stars_confidence=0.96,
+        stars_confidence=0.98,
+        level=81,
+        level_confidence=0.94,
     )
 
     instance = inspected.to_pet_instance(

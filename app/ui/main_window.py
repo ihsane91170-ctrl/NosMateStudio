@@ -1,5 +1,5 @@
 from pathlib import Path
-from app.ui.pages.vision_debug_page import VisionDebugPage
+
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtWidgets import (
     QButtonGroup,
@@ -27,6 +27,7 @@ from app.ui.pages.dashboard_page import DashboardPage
 from app.ui.pages.logs_page import LogsPage
 from app.ui.pages.settings_page import SettingsPage
 from app.ui.pages.template_editor_page import TemplateEditorPage
+from app.ui.pages.vision_debug_page import VisionDebugPage
 from app.ui.pages.workflow_page import WorkflowPage
 from app.ui.theme import build_stylesheet
 from app.vision.window_detector import WindowDetector

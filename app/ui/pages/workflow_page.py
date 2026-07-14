@@ -132,6 +132,7 @@ class WorkflowPage(QWidget):
         allowed_real_workflows = {
             "First Real Action",
             "Pet XP Workflow",
+            "Chicken Accompany Test",
         }
 
         if is_real and selected_name not in allowed_real_workflows:
@@ -216,6 +217,7 @@ class WorkflowPage(QWidget):
         context = WorkflowContext(
             runtime=runtime,
             data={
+                "runtime": runtime,
                 "settings": settings,
                 "calibration": calibration,
                 "game_window": window,
