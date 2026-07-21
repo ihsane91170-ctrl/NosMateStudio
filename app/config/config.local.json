@@ -1,0 +1,11 @@
+{
+  "profile": "Default",
+  "environment": "recette",
+  "hotkeys": {
+    "go_to_pet_xp_zone": "-",
+    "capture_new_pet": "&",
+    "summon_weak": "é",
+    "summon_normal": "q",
+    "summon_strong": "e"
+  }
+}
