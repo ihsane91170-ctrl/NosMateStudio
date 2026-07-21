@@ -15,7 +15,21 @@ from PySide6.QtWidgets import (
 
 from app import __version__
 from app.calibration.repository import JsonCalibrationRepository
+from app.capture.live_services import (
+    HotkeyReturnToExpZone,
+    LiveCaptureSettings,
+    LiveChickenCaptureAdapter,
+)
+from app.automation.action_engine import ActionEngine
+from app.automation.input_controller import InputController
+from app.combat.chicken_capture import ChickenCaptureService
+from app.executors.mouse.pyautogui_executor import PyAutoGUIMouseExecutor
+from app.vision.ai_detector import UltralyticsObjectDetector
+from app.vision.ai_target_selector import AITargetSelector
+from app.vision.hp_state_reader import HpStateReader
+from app.vision.screenshot_provider import PillowScreenshotBackend, WindowScreenshotProvider
 from app.calibration.service import CalibrationService
+from app.configuration.models import Action
 from app.configuration.repository import JsonSettingsRepository
 from app.configuration.service import SettingsService
 from app.core.controllers.calibration_controller import CalibrationController
@@ -25,6 +39,7 @@ from app.services.game_diagnostic_service import GameDiagnosticService
 from app.ui.pages.calibration_page import CalibrationPage
 from app.ui.pages.dashboard_page import DashboardPage
 from app.ui.pages.logs_page import LogsPage
+from app.ui.pages.production_page import ProductionPage
 from app.ui.pages.settings_page import SettingsPage
 from app.ui.pages.template_editor_page import TemplateEditorPage
 from app.ui.pages.vision_debug_page import VisionDebugPage
@@ -84,11 +99,62 @@ class MainWindow(QMainWindow):
             self.diagnostic_controller,
         )
 
+        project_root = Path(__file__).resolve().parents[2]
+        shared_screenshot_provider = WindowScreenshotProvider(PillowScreenshotBackend())
+        shared_ai_detector = UltralyticsObjectDetector(
+            project_root / "assets" / "models" / "chicken_detector.pt"
+        )
+        shared_target_selector = AITargetSelector()
+        shared_mouse_executor = PyAutoGUIMouseExecutor(enabled=True)
+        shared_action_engine = ActionEngine(
+            shared_mouse_executor,
+            InputController(simulation_mode=False),
+        )
+        shared_hp_reader = HpStateReader()
+        shared_capture_service = ChickenCaptureService(
+            shared_action_engine, shared_hp_reader
+        )
+
+        # Même pipeline réel pour Vision Debug et Production. Toute correction
+        # de détection, sélection ou capture bénéficie ainsi aux deux pages.
+        live_capture_settings = LiveCaptureSettings(
+            confidence=0.80,
+            return_hotkey=settings_service.current().hotkeys.get(
+                Action.GO_TO_PET_XP_ZONE
+            ),
+        )
+        shared_live_capture = LiveChickenCaptureAdapter(
+            project_root=project_root,
+            settings=live_capture_settings,
+            window_detector=window_detector,
+            screenshot_provider=shared_screenshot_provider,
+            ai_detector=shared_ai_detector,
+            target_selector=shared_target_selector,
+            capture_service=shared_capture_service,
+        )
+        self.production_page = ProductionPage(
+            capture_service=shared_live_capture,
+            return_service=HotkeyReturnToExpZone(
+                live_capture_settings.return_hotkey,
+                delay_seconds=live_capture_settings.return_delay_seconds,
+            ),
+        )
+        self.vision_debug_page = VisionDebugPage(
+            window_detector=window_detector,
+            screenshot_provider=shared_screenshot_provider,
+            mouse_executor=shared_mouse_executor,
+            ai_detector=shared_ai_detector,
+            ai_target_selector=shared_target_selector,
+            chicken_capture_service=shared_capture_service,
+            hp_state_reader=shared_hp_reader,
+        )
+
         self.pages.addWidget(self.dashboard)
         self.pages.addWidget(WorkflowPage())
+        self.pages.addWidget(self.production_page)
         self.pages.addWidget(CalibrationPage(self.calibration_controller))
         self.pages.addWidget(TemplateEditorPage())
-        self.pages.addWidget(VisionDebugPage())
+        self.pages.addWidget(self.vision_debug_page)
         self.pages.addWidget(LogsPage())
         self.pages.addWidget(SettingsPage(self.settings_controller))
 
@@ -126,6 +192,7 @@ class MainWindow(QMainWindow):
         labels = [
             "Dashboard",
             "Workflow",
+            "Production",
             "Calibration",
             "Templates",
             "Vision Debug",

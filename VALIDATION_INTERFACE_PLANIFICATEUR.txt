@@ -1,0 +1,11 @@
+NosMate Studio - Interface Planificateur V1
+
+Validation exécutée dans l’environnement de livraison :
+- 18 tests métier du planificateur : RÉUSSIS
+- compilation Python des fichiers modifiés : RÉUSSIE
+- tests Qt de la page : NON EXÉCUTABLES ici, PySide6 absent de l’environnement Linux
+
+À exécuter sous Windows dans le .venv du projet :
+python -m pytest tests/test_production_planner.py tests/test_production_planner_page.py -q
+
+Résultat attendu : 20 tests réussis.

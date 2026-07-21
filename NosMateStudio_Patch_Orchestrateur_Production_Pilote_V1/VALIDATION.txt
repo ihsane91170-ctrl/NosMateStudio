@@ -1,0 +1,8 @@
+Validation effectuée dans l'environnement de livraison
+
+- python -m pytest tests/test_production_planner.py tests/test_production_orchestrator.py -q
+  Résultat : 22 passed
+- python -m compileall -q app
+  Résultat : succès
+- Test Qt de production_planner_page : non exécutable ici car PySide6 absent.
+  À exécuter dans le .venv Windows du dépôt.

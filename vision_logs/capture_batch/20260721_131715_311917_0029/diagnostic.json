@@ -1,0 +1,93 @@
+{
+  "created_at": "2026-07-21T13:17:15.613",
+  "confidence_threshold": 0.8,
+  "window": {
+    "left": 433,
+    "top": 26,
+    "width": 1446,
+    "height": 929
+  },
+  "detections": [
+    {
+      "class_name": "chicken",
+      "confidence": 0.861491858959198,
+      "left": 167,
+      "top": 225,
+      "right": 228,
+      "bottom": 288
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8606706261634827,
+      "left": 1045,
+      "top": 445,
+      "right": 1114,
+      "bottom": 521
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8585930466651917,
+      "left": 933,
+      "top": 412,
+      "right": 1000,
+      "bottom": 490
+    },
+    {
+      "class_name": "not_chicken",
+      "confidence": 0.8575140237808228,
+      "left": 1127,
+      "top": 460,
+      "right": 1176,
+      "bottom": 531
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8285295367240906,
+      "left": 842,
+      "top": 613,
+      "right": 908,
+      "bottom": 682
+    },
+    {
+      "class_name": "not_chicken",
+      "confidence": 0.8136160969734192,
+      "left": 870,
+      "top": 148,
+      "right": 917,
+      "bottom": 221
+    },
+    {
+      "class_name": "not_chicken",
+      "confidence": 0.8113917708396912,
+      "left": 1403,
+      "top": 355,
+      "right": 1442,
+      "bottom": 418
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8062829971313477,
+      "left": 276,
+      "top": 595,
+      "right": 342,
+      "bottom": 658
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8026041388511658,
+      "left": 829,
+      "top": 692,
+      "right": 889,
+      "bottom": 755
+    }
+  ],
+  "selected": null,
+  "result": {
+    "success": false,
+    "message": "Clic bloqué par sécurité : Aucune poule suffisamment fiable et stable sur 2 image(s). Dernière image : 9 détection(s), dont 6 poule(s). Seuil clic réel : 0.90.",
+    "outcome": null,
+    "attacks_sent": null,
+    "capture_attempts": null,
+    "completed_at": "2026-07-21T13:17:15.622"
+  }
+}

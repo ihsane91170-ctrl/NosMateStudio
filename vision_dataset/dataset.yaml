@@ -1,0 +1,6 @@
+path: C:/Users/ihsan/Desktop/NosMateStudio/vision_dataset
+train: images
+val: images
+names:
+  0: chicken
+  1: not_chicken

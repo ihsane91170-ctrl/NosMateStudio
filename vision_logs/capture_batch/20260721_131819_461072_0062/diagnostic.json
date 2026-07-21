@@ -1,0 +1,61 @@
+{
+  "created_at": "2026-07-21T13:18:19.767",
+  "confidence_threshold": 0.8,
+  "window": {
+    "left": 433,
+    "top": 26,
+    "width": 1446,
+    "height": 929
+  },
+  "detections": [
+    {
+      "class_name": "chicken",
+      "confidence": 0.8638702630996704,
+      "left": 1060,
+      "top": 467,
+      "right": 1133,
+      "bottom": 536
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8574853539466858,
+      "left": 563,
+      "top": 384,
+      "right": 631,
+      "bottom": 452
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8316333293914795,
+      "left": 1073,
+      "top": 404,
+      "right": 1134,
+      "bottom": 465
+    },
+    {
+      "class_name": "not_chicken",
+      "confidence": 0.8252289295196533,
+      "left": 364,
+      "top": 351,
+      "right": 407,
+      "bottom": 418
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8122147917747498,
+      "left": 456,
+      "top": 336,
+      "right": 534,
+      "bottom": 400
+    }
+  ],
+  "selected": null,
+  "result": {
+    "success": false,
+    "message": "Clic bloqué par sécurité : Aucune poule suffisamment fiable et stable sur 2 image(s). Dernière image : 5 détection(s), dont 4 poule(s). Seuil clic réel : 0.90.",
+    "outcome": null,
+    "attacks_sent": null,
+    "capture_attempts": null,
+    "completed_at": "2026-07-21T13:18:19.779"
+  }
+}

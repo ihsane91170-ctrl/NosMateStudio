@@ -229,3 +229,45 @@ def test_debug_page_scans_visible_pets(
         page.status_label.text()
         == "2 familier(s) visible(s) détecté(s)."
     )
+
+def test_chicken_detection_without_negative_template_disables_selection(qtbot, tmp_path) -> None:
+    repository = TemplateRepository(tmp_path / "templates")
+    repository.save("chicken", Image.new("RGB", (30, 20)))
+    matches = (
+        TemplateMatch("chicken", 0.95, 100, 100, 30, 20),
+    )
+    page = VisionDebugPage(
+        window_detector=WindowDetectorStub(usable_window()),
+        screenshot_provider=ScreenshotProviderStub(Image.new("RGB", (1280, 720))),
+        template_repository=repository,
+        matcher=MatcherStub(matches),
+    )
+    qtbot.addWidget(page)
+
+    page.detect_chickens_button.click()
+
+    assert page.select_chicken_button.isEnabled() is False
+    assert "mode diagnostic uniquement" in page.status_label.text()
+    assert "REFUSÉE" in page.results_list.item(0).text()
+
+
+def test_export_chicken_diagnostic_creates_files(qtbot, tmp_path, monkeypatch) -> None:
+    repository = TemplateRepository(tmp_path / "templates")
+    repository.save("chicken", Image.new("RGB", (30, 20)))
+    repository.save("not_chicken", Image.new("RGB", (30, 20)))
+    matches = (TemplateMatch("chicken", 0.91, 100, 100, 30, 20),)
+    page = VisionDebugPage(
+        window_detector=WindowDetectorStub(usable_window()),
+        screenshot_provider=ScreenshotProviderStub(Image.new("RGB", (1280, 720))),
+        template_repository=repository,
+        matcher=MatcherStub(matches),
+    )
+    qtbot.addWidget(page)
+    monkeypatch.setattr(page, "PROJECT_ROOT", tmp_path)
+    page.detect_chickens_button.click()
+    page.export_diagnostic_button.click()
+    exports = list((tmp_path / "vision_logs").glob("chicken_*"))
+    assert len(exports) == 1
+    assert (exports[0] / "capture_originale.png").exists()
+    assert (exports[0] / "capture_annotee.png").exists()
+    assert (exports[0] / "diagnostic.json").exists()

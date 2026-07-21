@@ -1,0 +1,10 @@
+Validation effectuée le 14 juillet 2026
+
+Commande : python -m pytest tests/test_production_planner.py -q
+Résultat : 18 tests réussis
+
+Commande : python -m py_compile app/planning/production_planner.py app/planning/__init__.py tests/test_production_planner.py
+Résultat : succès
+
+Ruff : non exécuté car le module ruff n'est pas installé dans l'environnement de validation.
+Tests Windows/NosTale : non exécutables dans l'environnement Linux de livraison.

@@ -1,0 +1,65 @@
+{
+  "created_at": "2026-07-21T12:38:43.248",
+  "confidence_threshold": 0.8,
+  "window": {
+    "left": 433,
+    "top": 26,
+    "width": 1446,
+    "height": 929
+  },
+  "detections": [
+    {
+      "class_name": "chicken",
+      "confidence": 0.8658959865570068,
+      "left": 631,
+      "top": 584,
+      "right": 693,
+      "bottom": 644
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8152799606323242,
+      "left": 8,
+      "top": 151,
+      "right": 66,
+      "bottom": 212
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8073104619979858,
+      "left": 122,
+      "top": 179,
+      "right": 185,
+      "bottom": 244
+    }
+  ],
+  "selected": {
+    "detection": {
+      "class_name": "chicken",
+      "confidence": 0.8658959865570068,
+      "left": 631,
+      "top": 584,
+      "right": 693,
+      "bottom": 644
+    },
+    "score": 0.8497595193437119,
+    "confidence_score": 0.8658959865570068,
+    "center_score": 0.8121077625126906,
+    "local_click": [
+      662,
+      614
+    ],
+    "screen_click": [
+      1095,
+      640
+    ]
+  },
+  "result": {
+    "success": false,
+    "message": "HP_UNKNOWN — 1 attaque(s), 0 tentative(s) de capture.",
+    "outcome": "HP_UNKNOWN",
+    "attacks_sent": 1,
+    "capture_attempts": 0,
+    "completed_at": "2026-07-21T12:38:44.561"
+  }
+}

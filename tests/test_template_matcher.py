@@ -176,3 +176,13 @@ def test_matcher_deduplicates_close_occurrences(tmp_path) -> None:
     )
 
     assert len(matches) == 1
+
+def test_matcher_find_best_returns_below_threshold_candidate(tmp_path) -> None:
+    repository = TemplateRepository(tmp_path / "templates")
+    template = build_pattern()
+    repository.save("chicken", template)
+    screenshot = Image.new("RGB", (160, 100), (120, 120, 120))
+    matcher = TemplateMatcher(repository)
+    match = matcher.find_best(screenshot, "chicken")
+    assert match.template_name == "chicken"
+    assert 0.0 <= match.confidence <= 1.0

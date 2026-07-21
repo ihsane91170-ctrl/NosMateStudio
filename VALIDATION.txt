@@ -1,0 +1,6 @@
+Validation effectuée dans l'environnement de livraison
+
+- 9 tests métier réussis : ai_detector + ai_target_selector
+- Compilation Python réussie : ai_target_selector.py + vision_debug_page.py
+- Test Qt fourni mais à exécuter sous Windows avec PySide6, pytest-qt et pygetwindow
+- Aucun modèle .pt inclus dans le patch : le modèle utilisateur reste dans assets/models/chicken_detector.pt

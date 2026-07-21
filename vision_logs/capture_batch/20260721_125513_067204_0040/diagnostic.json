@@ -1,0 +1,97 @@
+{
+  "created_at": "2026-07-21T12:55:13.369",
+  "confidence_threshold": 0.8,
+  "window": {
+    "left": 433,
+    "top": 26,
+    "width": 1446,
+    "height": 929
+  },
+  "detections": [
+    {
+      "class_name": "chicken",
+      "confidence": 0.905587375164032,
+      "left": 1250,
+      "top": 494,
+      "right": 1307,
+      "bottom": 558
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8868209719657898,
+      "left": 822,
+      "top": 445,
+      "right": 886,
+      "bottom": 514
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8786540031433105,
+      "left": 1064,
+      "top": 632,
+      "right": 1124,
+      "bottom": 700
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8400267362594604,
+      "left": 924,
+      "top": 419,
+      "right": 976,
+      "bottom": 483
+    },
+    {
+      "class_name": "not_chicken",
+      "confidence": 0.8044208288192749,
+      "left": 1002,
+      "top": 407,
+      "right": 1046,
+      "bottom": 481
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8036815524101257,
+      "left": 316,
+      "top": 149,
+      "right": 366,
+      "bottom": 210
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8018476963043213,
+      "left": 228,
+      "top": 125,
+      "right": 284,
+      "bottom": 181
+    }
+  ],
+  "selected": {
+    "detection": {
+      "class_name": "chicken",
+      "confidence": 0.8868209719657898,
+      "left": 822,
+      "top": 445,
+      "right": 886,
+      "bottom": 514
+    },
+    "score": 0.8747633594913309,
+    "confidence_score": 0.8868209719657898,
+    "center_score": 0.8466289303842602,
+    "local_click": [
+      854,
+      479
+    ],
+    "screen_click": [
+      1287,
+      505
+    ]
+  },
+  "result": {
+    "success": false,
+    "message": "MAX_CAPTURE_ATTEMPTS_REACHED — 1 attaque(s), 10 tentative(s) de capture.",
+    "outcome": "MAX_CAPTURE_ATTEMPTS_REACHED",
+    "attacks_sent": 1,
+    "capture_attempts": 10,
+    "completed_at": "2026-07-21T12:55:27.028"
+  }
+}

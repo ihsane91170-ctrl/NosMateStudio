@@ -1,0 +1,22 @@
+PATCH S10.6 - FLIGHT RECORDER CAPTURE
+
+1. Décompresser ce ZIP à la racine de NosMateStudio.
+2. Accepter le remplacement des fichiers.
+3. Relancer complètement NosMate Studio.
+
+Dans l'onglet Production, la case "Sauvegarder les captures de diagnostic"
+est activée par défaut.
+
+Chaque tentative crée un dossier dans :
+vision_logs/capture_batch/YYYYMMDD_HHMMSS_xxxxxx_NNNN/
+
+Fichiers :
+- capture_originale.png
+- capture_annotee.png
+- diagnostic.json
+
+Sur l'image annotée :
+- cadre rouge : cible sélectionnée et point de clic
+- cadres blancs : autres détections
+
+En cas de mauvaise cible, envoyer le dossier complet correspondant à la tentative.

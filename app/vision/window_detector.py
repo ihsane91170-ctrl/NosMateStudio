@@ -3,7 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-import pygetwindow as gw
 
 
 @dataclass(frozen=True, slots=True)
@@ -71,6 +70,11 @@ class WindowDetector:
         return True
 
     def _find_native_window(self) -> Any | None:
+        try:
+            import pygetwindow as gw
+        except (ImportError, NotImplementedError):
+            return None
+
         needle = self.title_contains.casefold()
 
         for window in gw.getAllWindows():

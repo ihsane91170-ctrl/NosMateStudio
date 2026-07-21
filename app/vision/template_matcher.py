@@ -83,6 +83,45 @@ class TemplateMatcher:
             height=int(template_height),
         )
 
+
+    def find_best(
+        self,
+        screenshot: Image.Image,
+        template_name: str,
+    ) -> TemplateMatch:
+        """Retourne toujours la meilleure correspondance, sans appliquer de seuil."""
+        source = self._to_grayscale_array(screenshot)
+        template_image = self._repository.load_image(template_name)
+        template = self._to_grayscale_array(template_image)
+
+        source_height, source_width = source.shape
+        template_height, template_width = template.shape
+
+        if (
+            template_width > source_width
+            or template_height > source_height
+        ):
+            raise TemplateTooLargeError(
+                "Le template est plus grand que l'image analysée."
+            )
+
+        result = cv2.matchTemplate(
+            source,
+            template,
+            cv2.TM_CCOEFF_NORMED,
+        )
+        _, maximum, _, maximum_location = cv2.minMaxLoc(result)
+        left, top = maximum_location
+
+        return TemplateMatch(
+            template_name=template_name,
+            confidence=float(maximum),
+            left=int(left),
+            top=int(top),
+            width=int(template_width),
+            height=int(template_height),
+        )
+
     def find_all(
         self,
         screenshot: Image.Image,

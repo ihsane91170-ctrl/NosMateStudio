@@ -1,0 +1,81 @@
+{
+  "created_at": "2026-07-21T12:55:06.936",
+  "confidence_threshold": 0.8,
+  "window": {
+    "left": 433,
+    "top": 26,
+    "width": 1446,
+    "height": 929
+  },
+  "detections": [
+    {
+      "class_name": "chicken",
+      "confidence": 0.9114377498626709,
+      "left": 190,
+      "top": 307,
+      "right": 245,
+      "bottom": 375
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8965999484062195,
+      "left": 160,
+      "top": 256,
+      "right": 215,
+      "bottom": 321
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8836230039596558,
+      "left": 106,
+      "top": 748,
+      "right": 175,
+      "bottom": 810
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8726710677146912,
+      "left": 108,
+      "top": 290,
+      "right": 168,
+      "bottom": 355
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8099310398101807,
+      "left": 531,
+      "top": 690,
+      "right": 604,
+      "bottom": 759
+    }
+  ],
+  "selected": {
+    "detection": {
+      "class_name": "chicken",
+      "confidence": 0.8099310398101807,
+      "left": 531,
+      "top": 690,
+      "right": 604,
+      "bottom": 759
+    },
+    "score": 0.7612510953978392,
+    "confidence_score": 0.8099310398101807,
+    "center_score": 0.6476645584357091,
+    "local_click": [
+      567,
+      724
+    ],
+    "screen_click": [
+      1000,
+      750
+    ]
+  },
+  "result": {
+    "success": true,
+    "message": "CAPTURE_SENT — 3 attaque(s), 2 tentative(s) de capture.",
+    "outcome": "CAPTURE_SENT",
+    "attacks_sent": 3,
+    "capture_attempts": 2,
+    "completed_at": "2026-07-21T12:55:12.692"
+  }
+}

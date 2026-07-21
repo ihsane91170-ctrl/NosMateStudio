@@ -1,0 +1,65 @@
+{
+  "created_at": "2026-07-21T12:54:30.933",
+  "confidence_threshold": 0.8,
+  "window": {
+    "left": 433,
+    "top": 26,
+    "width": 1446,
+    "height": 929
+  },
+  "detections": [
+    {
+      "class_name": "chicken",
+      "confidence": 0.888213574886322,
+      "left": 1057,
+      "top": 549,
+      "right": 1121,
+      "bottom": 621
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8575793504714966,
+      "left": 6,
+      "top": 222,
+      "right": 63,
+      "bottom": 281
+    },
+    {
+      "class_name": "not_chicken",
+      "confidence": 0.8158986568450928,
+      "left": 786,
+      "top": 160,
+      "right": 834,
+      "bottom": 224
+    }
+  ],
+  "selected": {
+    "detection": {
+      "class_name": "chicken",
+      "confidence": 0.888213574886322,
+      "left": 1057,
+      "top": 549,
+      "right": 1121,
+      "bottom": 621
+    },
+    "score": 0.7872323513201592,
+    "confidence_score": 0.888213574886322,
+    "center_score": 0.5516094963324463,
+    "local_click": [
+      1089,
+      585
+    ],
+    "screen_click": [
+      1522,
+      611
+    ]
+  },
+  "result": {
+    "success": true,
+    "message": "CAPTURE_SENT — 2 attaque(s), 3 tentative(s) de capture.",
+    "outcome": "CAPTURE_SENT",
+    "attacks_sent": 2,
+    "capture_attempts": 3,
+    "completed_at": "2026-07-21T12:54:37.046"
+  }
+}

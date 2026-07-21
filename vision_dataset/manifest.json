@@ -1,0 +1,8 @@
+{
+  "classes": [
+    "chicken",
+    "not_chicken"
+  ],
+  "images": 9,
+  "labels": 9
+}

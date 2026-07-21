@@ -1,0 +1,73 @@
+{
+  "created_at": "2026-07-21T12:44:46.652",
+  "confidence_threshold": 0.8,
+  "window": {
+    "left": 433,
+    "top": 26,
+    "width": 1446,
+    "height": 929
+  },
+  "detections": [
+    {
+      "class_name": "chicken",
+      "confidence": 0.8679802417755127,
+      "left": 1283,
+      "top": 367,
+      "right": 1348,
+      "bottom": 429
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8510819673538208,
+      "left": 5,
+      "top": 352,
+      "right": 62,
+      "bottom": 415
+    },
+    {
+      "class_name": "not_chicken",
+      "confidence": 0.8471970558166504,
+      "left": 901,
+      "top": 620,
+      "right": 943,
+      "bottom": 693
+    },
+    {
+      "class_name": "not_chicken",
+      "confidence": 0.8052156567573547,
+      "left": 879,
+      "top": 582,
+      "right": 932,
+      "bottom": 651
+    }
+  ],
+  "selected": {
+    "detection": {
+      "class_name": "chicken",
+      "confidence": 0.8679802417755127,
+      "left": 1283,
+      "top": 367,
+      "right": 1348,
+      "bottom": 429
+    },
+    "score": 0.6996194923154179,
+    "confidence_score": 0.8679802417755127,
+    "center_score": 0.30677774357519694,
+    "local_click": [
+      1315,
+      398
+    ],
+    "screen_click": [
+      1748,
+      424
+    ]
+  },
+  "result": {
+    "success": false,
+    "message": "MAX_CAPTURE_ATTEMPTS_REACHED — 1 attaque(s), 10 tentative(s) de capture.",
+    "outcome": "MAX_CAPTURE_ATTEMPTS_REACHED",
+    "attacks_sent": 1,
+    "capture_attempts": 10,
+    "completed_at": "2026-07-21T12:45:00.318"
+  }
+}

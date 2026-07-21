@@ -1,0 +1,77 @@
+{
+  "created_at": "2026-07-21T13:16:52.594",
+  "confidence_threshold": 0.8,
+  "window": {
+    "left": 433,
+    "top": 26,
+    "width": 1446,
+    "height": 929
+  },
+  "detections": [
+    {
+      "class_name": "not_chicken",
+      "confidence": 0.8955865502357483,
+      "left": 718,
+      "top": 557,
+      "right": 765,
+      "bottom": 623
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8791609406471252,
+      "left": 378,
+      "top": 573,
+      "right": 445,
+      "bottom": 637
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8769688010215759,
+      "left": 896,
+      "top": 619,
+      "right": 962,
+      "bottom": 689
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8125357031822205,
+      "left": 835,
+      "top": 692,
+      "right": 896,
+      "bottom": 757
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8046454787254333,
+      "left": 1368,
+      "top": 587,
+      "right": 1442,
+      "bottom": 658
+    },
+    {
+      "class_name": "chicken",
+      "confidence": 0.8033233880996704,
+      "left": 840,
+      "top": 612,
+      "right": 907,
+      "bottom": 680
+    },
+    {
+      "class_name": "not_chicken",
+      "confidence": 0.8016577959060669,
+      "left": 1111,
+      "top": 514,
+      "right": 1155,
+      "bottom": 585
+    }
+  ],
+  "selected": null,
+  "result": {
+    "success": false,
+    "message": "Clic bloqué par sécurité : Aucune poule suffisamment fiable et stable sur 2 image(s). Dernière image : 7 détection(s), dont 5 poule(s). Seuil clic réel : 0.90.",
+    "outcome": null,
+    "attacks_sent": null,
+    "capture_attempts": null,
+    "completed_at": "2026-07-21T13:16:52.606"
+  }
+}

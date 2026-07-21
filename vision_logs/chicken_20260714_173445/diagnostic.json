@@ -1,0 +1,22 @@
+{
+  "templates_charges": [
+    "accompagner_template",
+    "accompany_button",
+    "chicken",
+    "not_chicken_01",
+    "pet_chicken_row",
+    "pet_row",
+    "pet_slot",
+    "selectpetandaccompanyaction",
+    "stars_1",
+    "stars_2",
+    "stars_3",
+    "stars_4",
+    "stars_5",
+    "stars_6"
+  ],
+  "seuil_poule": 0.8,
+  "seuil_autre": 0.45,
+  "marge_minimale": 0.12,
+  "candidates": []
+}

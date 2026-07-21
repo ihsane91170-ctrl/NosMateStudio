@@ -1,0 +1,27 @@
+{
+  "state": "FULL_HP",
+  "green_ratio": 0.4344746162927981,
+  "red_ratio": 0.0,
+  "hp_box": [
+    621,
+    49,
+    774,
+    59
+  ],
+  "search_box": [
+    404,
+    0,
+    1012,
+    145
+  ],
+  "image_size": [
+    1446,
+    929
+  ],
+  "files": {
+    "original": "capture_originale.png",
+    "annotated": "capture_annotee.png",
+    "search_zone": "zone_recherche.png",
+    "hp_zone": "zone_hp.png"
+  }
+}

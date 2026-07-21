@@ -1,0 +1,27 @@
+{
+  "state": "ONE_HP",
+  "green_ratio": 0.2749266862170088,
+  "red_ratio": 0.008064516129032258,
+  "hp_box": [
+    117,
+    50,
+    240,
+    60
+  ],
+  "search_box": [
+    0,
+    0,
+    280,
+    130
+  ],
+  "image_size": [
+    1446,
+    929
+  ],
+  "files": {
+    "original": "capture_originale.png",
+    "annotated": "capture_annotee.png",
+    "search_zone": "zone_recherche.png",
+    "hp_zone": "zone_hp.png"
+  }
+}
